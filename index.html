@@ -6,10 +6,7 @@
   <title>OneCoin Rich Miner</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap');
-
     body {
-      font-family: 'Rajdhani', sans-serif;
       background-color: #050507;
       color: #ffffff;
       user-select: none;
@@ -18,18 +15,22 @@
       touch-action: manipulation;
     }
 
-    input {
+    input, textarea {
       user-select: text;
       -webkit-user-select: text;
-    }
-
-    .font-orbitron {
-      font-family: 'Orbitron', sans-serif;
     }
 
     .silver-border {
       border: 1px solid #c0c0c0;
       box-shadow: 0 0 10px rgba(192, 192, 192, 0.2);
+    }
+
+    .silver-hairline {
+      border: 0.5px solid #c0c0c0;
+    }
+
+    header.silver-hairline {
+      border-top-width: 0;
     }
 
     .silver-border-glow {
@@ -72,9 +73,7 @@
       position: absolute;
       pointer-events: none;
       animation: floatUp 1s ease-out forwards;
-      font-weight: bold;
       color: #ffd700;
-      font-family: 'Orbitron', sans-serif;
       text-shadow: 0 0 8px rgba(255,215,0,0.8);
       z-index: 50;
     }
@@ -91,11 +90,9 @@
       background: #e53e3e;
       color: white;
       font-size: 10px;
-      font-weight: bold;
       padding: 2px 25px;
       transform: rotate(-45deg);
       box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-      font-family: 'Orbitron', sans-serif;
     }
 
     ::-webkit-scrollbar {
@@ -113,34 +110,34 @@
 <body class="flex flex-col min-h-screen justify-between pb-20">
 
   <div class="sticky top-0 z-40">
-  <div class="bg-black silver-border px-3 py-2 flex items-center justify-between">
-    <div class="w-7 h-7 rounded-full bg-amber-500 border border-yellow-300 flex items-center justify-center text-black font-black text-xs">
+  <div class="bg-black silver-hairline px-3 py-2 flex items-center justify-center space-x-2">
+    <div class="w-7 h-7 rounded-full bg-amber-500 border border-yellow-300 flex items-center justify-center text-black text-xs">
       1
     </div>
-    <span class="font-orbitron text-white text-base font-extrabold tracking-wider">OneCoin</span>
-    <svg class="w-7 h-7" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="11" fill="#1d9bf0"/>
-      <path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <span class="text-white text-base tracking-wider">OneCoin</span>
+    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24">
+      <path d="M22.90 12.00 L22.72 12.70 L22.21 13.34 L21.51 13.89 L20.79 14.36 L20.20 14.78 L19.85 15.25 L19.77 15.83 L19.88 16.55 L20.07 17.39 L20.17 18.27 L20.07 19.08 L19.71 19.71 L19.08 20.07 L18.27 20.17 L17.39 20.07 L16.55 19.88 L15.83 19.77 L15.25 19.85 L14.78 20.20 L14.36 20.79 L13.89 21.51 L13.34 22.21 L12.70 22.72 L12.00 22.90 L11.30 22.72 L10.66 22.21 L10.11 21.51 L9.64 20.79 L9.22 20.20 L8.75 19.85 L8.17 19.77 L7.45 19.88 L6.61 20.07 L5.73 20.17 L4.92 20.07 L4.29 19.71 L3.93 19.08 L3.83 18.27 L3.93 17.39 L4.12 16.55 L4.23 15.83 L4.15 15.25 L3.80 14.78 L3.21 14.36 L2.49 13.89 L1.79 13.34 L1.28 12.70 L1.10 12.00 L1.28 11.30 L1.79 10.66 L2.49 10.11 L3.21 9.64 L3.80 9.22 L4.15 8.75 L4.23 8.17 L4.12 7.45 L3.93 6.61 L3.83 5.73 L3.93 4.92 L4.29 4.29 L4.92 3.93 L5.73 3.83 L6.61 3.93 L7.45 4.12 L8.17 4.23 L8.75 4.15 L9.22 3.80 L9.64 3.21 L10.11 2.49 L10.66 1.79 L11.30 1.28 L12.00 1.10 L12.70 1.28 L13.34 1.79 L13.89 2.49 L14.36 3.21 L14.78 3.80 L15.25 4.15 L15.83 4.23 L16.55 4.12 L17.39 3.93 L18.27 3.83 L19.08 3.93 L19.71 4.29 L20.07 4.92 L20.17 5.73 L20.07 6.61 L19.88 7.45 L19.77 8.17 L19.85 8.75 L20.20 9.22 L20.79 9.64 L21.51 10.11 L22.21 10.66 L22.72 11.30Z" fill="#0095f6"/>
+      <path d="M7.4 12.4l3.2 3.2 6-6.4" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
-  <header class="bg-black silver-border px-3 py-2.5 flex items-center justify-between">
+  <header class="bg-black silver-hairline px-3 py-2.5 flex items-center justify-between">
 
     <div class="flex items-center space-x-1.5 bg-neutral-900/80 px-2.5 py-1 rounded-full silver-border">
-      <div class="w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-sm shadow">
+      <div class="w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-sm shadow">
         2
       </div>
-      <span id="top-op-balance" class="font-orbitron text-white text-sm font-bold">0</span>
-      <button onclick="openModal('op-buy-modal')" class="px-1 text-white font-bold text-xl leading-none hover:text-gray-300 active:scale-95 transition">
+      <span id="top-op-balance" class="text-white text-sm">0</span>
+      <button onclick="openModal('op-buy-modal')" class="px-1 text-white text-xl leading-none hover:text-gray-300 active:scale-95 transition">
         +
       </button>
     </div>
 
     <div onclick="openModal('valuation-modal')" class="flex items-center space-x-2 bg-neutral-900/80 px-3 py-1 rounded-full silver-border cursor-pointer hover:bg-neutral-800 transition">
-      <div class="w-6 h-6 rounded-full bg-amber-500 border border-yellow-300 flex items-center justify-center text-black font-black text-xs">
+      <div class="w-6 h-6 rounded-full bg-amber-500 border border-yellow-300 flex items-center justify-center text-black text-xs">
         1
       </div>
-      <span id="top-one-balance" class="font-orbitron text-white text-sm font-bold">0.000</span>
+      <span id="top-one-balance" class="text-white text-sm">0.000</span>
     </div>
 
     <button onclick="openModal('calendar-modal')" class="w-9 h-9 rounded-full bg-neutral-900 flex items-center justify-center text-white hover:bg-neutral-800 active:scale-95 transition">
@@ -158,26 +155,26 @@
       <div class="relative py-4 flex items-center justify-center">
         <div id="coin-drum" class="coin-3d" onmousedown="startMining()" onmouseup="stopMining()" onmouseleave="stopMining()" ontouchstart="startMining(event)" ontouchend="stopMining()">
           <div class="w-36 h-36 rounded-full border-4 border-yellow-200/50 flex flex-col items-center justify-center bg-gradient-to-br from-amber-500 to-yellow-700 text-black shadow-inner">
-            <span class="text-3xl font-black font-orbitron tracking-tighter">ONE</span>
-            <span class="text-xs font-bold tracking-widest uppercase text-yellow-950">Ruja Ignatova</span>
+            <span class="text-3xl tracking-tighter">ONE</span>
+            <span class="text-xs tracking-widest uppercase text-yellow-950">Ruja Ignatova</span>
           </div>
         </div>
       </div>
 
       <div class="text-center">
-        <div id="mined-counter" class="font-orbitron text-3xl md:text-4xl font-extrabold text-white tracking-wider">
+        <div id="mined-counter" class="text-3xl md:text-4xl text-white tracking-wider">
           0.000000000
         </div>
-        <div id="mining-speed-display" class="text-gray-400 font-orbitron text-xs tracking-widest mt-2 uppercase">
-          Mining <span id="speed-val" class="text-white font-bold">3.000</span> GH/s
+        <div id="mining-speed-display" class="text-gray-400 text-xs tracking-widest mt-2 uppercase">
+          Mining <span id="speed-val" class="text-white">3.000</span> GH/s
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-3 w-full max-w-xs pt-2">
-        <button onclick="claimMinedCoins()" class="py-3 px-4 bg-white text-black font-orbitron font-extrabold text-sm rounded-xl shadow-lg hover:bg-gray-200 active:scale-95 transition uppercase tracking-wider">
+        <button onclick="claimMinedCoins()" class="py-3 px-4 bg-white text-black text-sm rounded-xl shadow-lg hover:bg-gray-200 active:scale-95 transition uppercase tracking-wider">
           Claim
         </button>
-        <button onclick="openModal('booster-modal')" class="py-3 px-4 bg-black text-white silver-border font-orbitron font-extrabold text-sm rounded-xl hover:bg-neutral-900 active:scale-95 transition uppercase tracking-wider">
+        <button onclick="openModal('booster-modal')" class="py-3 px-4 bg-black text-white silver-border text-sm rounded-xl hover:bg-neutral-900 active:scale-95 transition uppercase tracking-wider">
           Booster
         </button>
       </div>
@@ -186,48 +183,48 @@
         <div class="grid grid-cols-2 gap-3">
 
           <div class="bg-neutral-950 silver-border rounded-xl p-3 flex flex-col items-center justify-between text-center relative overflow-hidden">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black font-black text-xs mb-2">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black text-xs mb-2">
               OP
             </div>
-            <div class="font-orbitron font-bold text-white text-base">100</div>
+            <div class="text-white text-base">100</div>
             <div class="text-xs text-gray-400 mb-3">One Point</div>
-            <button onclick="buyOpPackage(100)" class="w-full py-1.5 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <button onclick="buyOpPackage(100)" class="w-full py-1.5 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               BUY
             </button>
           </div>
 
           <div class="bg-neutral-950 silver-border rounded-xl p-3 flex flex-col items-center justify-between text-center relative overflow-hidden">
             <div class="ribbon">-10%</div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black font-black text-xs mb-2 mt-1">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black text-xs mb-2 mt-1">
               OP
             </div>
-            <div class="font-orbitron font-bold text-white text-base">1,000</div>
+            <div class="text-white text-base">1,000</div>
             <div class="text-xs text-gray-400 mb-3">One Point</div>
-            <button onclick="buyOpPackage(1000)" class="w-full py-1.5 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <button onclick="buyOpPackage(1000)" class="w-full py-1.5 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               BUY
             </button>
           </div>
 
           <div class="bg-neutral-950 silver-border rounded-xl p-3 flex flex-col items-center justify-between text-center relative overflow-hidden">
             <div class="ribbon">-20%</div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black font-black text-xs mb-2 mt-1">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black text-xs mb-2 mt-1">
               OP
             </div>
-            <div class="font-orbitron font-bold text-white text-base">10,000</div>
+            <div class="text-white text-base">10,000</div>
             <div class="text-xs text-gray-400 mb-3">One Point</div>
-            <button onclick="buyOpPackage(10000)" class="w-full py-1.5 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <button onclick="buyOpPackage(10000)" class="w-full py-1.5 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               BUY
             </button>
           </div>
 
           <div class="bg-neutral-950 silver-border rounded-xl p-3 flex flex-col items-center justify-between text-center relative overflow-hidden">
             <div class="ribbon">-50%</div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black font-black text-xs mb-2 mt-1">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 flex items-center justify-center text-black text-xs mb-2 mt-1">
               OP
             </div>
-            <div class="font-orbitron font-bold text-white text-base">20,000</div>
+            <div class="text-white text-base">20,000</div>
             <div class="text-xs text-gray-400 mb-3">One Point</div>
-            <button onclick="buyOpPackage(20000)" class="w-full py-1.5 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <button onclick="buyOpPackage(20000)" class="w-full py-1.5 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               BUY
             </button>
           </div>
@@ -239,33 +236,33 @@
 
     <section id="tab-friends" class="tab-content hidden space-y-5">
       <div class="bg-neutral-950 silver-border rounded-2xl p-5 text-center space-y-4">
-        <h2 class="font-orbitron text-lg font-black text-white tracking-wide">
+        <h2 class="text-lg text-white tracking-wide">
           1 Invited Friend = 10 One Point
         </h2>
         <p class="text-xs text-gray-300 leading-relaxed">
-          Earn <span class="text-amber-400 font-bold">10% commission</span> from all funds withdrawn by your invited friends!
+          Earn <span class="text-amber-400">10% commission</span> from all funds withdrawn by your invited friends!
         </p>
 
         <div class="bg-black silver-border rounded-xl p-4 flex items-center justify-between">
           <div class="text-left">
-            <div class="text-xs text-gray-400 font-orbitron">TOTAL EARNED</div>
-            <div class="font-orbitron text-xl font-bold text-emerald-400">$<span id="referral-earnings">0.00</span></div>
+            <div class="text-xs text-gray-400">TOTAL EARNED</div>
+            <div class="text-xl text-emerald-400">$<span id="referral-earnings">0.00</span></div>
           </div>
-          <button onclick="withdrawReferrals()" class="py-2 px-4 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+          <button onclick="withdrawReferrals()" class="py-2 px-4 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
             Withdraw
           </button>
         </div>
 
         <div class="bg-black silver-border rounded-xl p-4 text-left">
-          <div class="text-xs text-gray-400 font-orbitron">YOUR INVITE CODE</div>
-          <div id="my-code" class="font-orbitron text-xl font-bold text-white">-</div>
+          <div class="text-xs text-gray-400">YOUR INVITE CODE</div>
+          <div id="my-code" class="text-xl text-white">-</div>
         </div>
 
         <div class="space-y-2 text-left">
-          <label class="text-xs text-gray-400 font-orbitron">YOUR INVITATION LINK</label>
+          <label class="text-xs text-gray-400">YOUR INVITATION LINK</label>
           <div class="flex items-center space-x-2">
-            <input id="ref-link" type="text" readonly value="" class="bg-black silver-border text-xs text-gray-300 rounded-lg p-2.5 flex-1 focus:outline-none font-mono">
-            <button onclick="copyRefLink()" class="py-2.5 px-4 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <input id="ref-link" type="text" readonly value="" class="bg-black silver-border text-xs text-gray-300 rounded-lg p-2.5 flex-1 focus:outline-none">
+            <button onclick="copyRefLink()" class="py-2.5 px-4 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               Copy
             </button>
           </div>
@@ -273,9 +270,9 @@
       </div>
 
       <div class="bg-neutral-950 silver-border rounded-2xl p-4 space-y-3">
-        <div class="flex justify-between items-center text-xs font-orbitron text-gray-400 border-b border-neutral-800 pb-2">
+        <div class="flex justify-between items-center text-xs text-gray-400 border-b border-neutral-800 pb-2">
           <span>INVITED USERS</span>
-          <span id="friends-count" class="text-white font-bold">0 Users</span>
+          <span id="friends-count" class="text-white">0 Users</span>
         </div>
         <div id="friends-list" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-center text-gray-500 text-xs py-4">
           No friends invited yet. Share your referral link above!
@@ -287,32 +284,32 @@
 
       <div class="bg-neutral-950 silver-border rounded-2xl p-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-full bg-amber-500 border-2 border-yellow-300 flex items-center justify-center text-black font-black text-lg">
+          <div class="w-12 h-12 rounded-full bg-amber-500 border-2 border-yellow-300 flex items-center justify-center text-black text-lg">
             1
           </div>
           <div>
-            <div class="font-orbitron font-bold text-white text-base">One Coin</div>
-            <div class="font-orbitron text-lg font-black text-amber-400" id="wallet-one-balance">0.000000000</div>
+            <div class="text-white text-base">One Coin</div>
+            <div class="text-lg text-amber-400" id="wallet-one-balance">0.000000000</div>
             <div class="text-xs text-gray-400">≈ $<span id="wallet-one-usd">0.00</span> USD</div>
           </div>
         </div>
-        <button onclick="convertOneToUsdt()" class="py-2 px-3 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition text-center">
+        <button onclick="convertOneToUsdt()" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition text-center">
           Convert to USDT
         </button>
       </div>
 
       <div class="bg-neutral-950 silver-border rounded-2xl p-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-full bg-emerald-600 border-2 border-emerald-400 flex items-center justify-center text-white font-black text-sm">
+          <div class="w-12 h-12 rounded-full bg-emerald-600 border-2 border-emerald-400 flex items-center justify-center text-white text-sm">
             USDT
           </div>
           <div>
-            <div class="font-orbitron font-bold text-white text-base">Tether USD</div>
-            <div class="font-orbitron text-lg font-black text-emerald-400" id="wallet-usdt-balance">0.00</div>
+            <div class="text-white text-base">Tether USD</div>
+            <div class="text-lg text-emerald-400" id="wallet-usdt-balance">0.00</div>
             <div class="text-xs text-gray-400">≈ $<span id="wallet-usdt-usd">0.00</span> USD</div>
           </div>
         </div>
-        <button onclick="withdrawUsdt()" class="py-2 px-3 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition text-center">
+        <button onclick="withdrawUsdt()" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition text-center">
           Withdrawal
         </button>
       </div>
@@ -322,7 +319,7 @@
   </main>
 
   <div class="text-center pb-2">
-    <button onclick="logout()" class="text-xs text-gray-500 font-orbitron hover:text-white transition">LOG OUT</button>
+    <button onclick="logout()" class="text-xs text-gray-500 hover:text-white transition">LOG OUT</button>
   </div>
 
   <nav class="bg-black silver-border fixed bottom-0 left-0 right-0 z-40 px-6 py-2">
@@ -332,21 +329,21 @@
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
-        <span class="text-xs font-orbitron font-bold">Home</span>
+        <span class="text-xs">Home</span>
       </button>
 
       <button onclick="switchTab('friends')" id="nav-friends" class="nav-btn flex flex-col items-center space-y-1 text-gray-500 hover:text-white transition">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
           <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
         </svg>
-        <span class="text-xs font-orbitron font-bold">Friends</span>
+        <span class="text-xs">Friends</span>
       </button>
 
       <button onclick="switchTab('wallet')" id="nav-wallet" class="nav-btn flex flex-col items-center space-y-1 text-gray-500 hover:text-white transition">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
           <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
         </svg>
-        <span class="text-xs font-orbitron font-bold">Wallet</span>
+        <span class="text-xs">Wallet</span>
       </button>
 
     </div>
@@ -354,118 +351,132 @@
 
   <div id="auth-modal" class="fixed inset-0 bg-black z-[60] flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 text-center">
-      <h3 id="auth-title" class="font-orbitron font-extrabold text-lg text-white">SIGN IN</h3>
-      <input id="auth-user" type="text" autocapitalize="none" autocomplete="username" placeholder="Username" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
-      <input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
-      <input id="auth-code" type="text" inputmode="numeric" placeholder="Invite code" class="hidden w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <h3 id="auth-title" class="text-lg text-white">SIGN IN</h3>
+      <input id="auth-user" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" autocapitalize="none" autocomplete="username" placeholder="Username" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <input id="auth-pass" onkeydown="if (event.key === 'Enter') submitAuth()" type="password" autocomplete="current-password" placeholder="Password" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <input id="auth-code" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" inputmode="numeric" placeholder="Invite code" class="hidden w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
       <div id="auth-error" class="text-xs text-red-400 min-h-[1rem]"></div>
-      <button id="auth-submit" onclick="submitAuth()" class="w-full py-3 bg-white text-black font-orbitron font-extrabold text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">SIGN IN</button>
-      <button id="auth-switch" onclick="setAuthMode(authMode === 'in' ? 'up' : 'in')" class="text-xs text-gray-400 font-orbitron hover:text-white transition">No account? Sign Up</button>
+      <button id="auth-submit" onclick="submitAuth()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">SIGN IN</button>
+      <button id="auth-switch" onclick="setAuthMode(authMode === 'in' ? 'up' : 'in')" class="text-xs text-gray-400 hover:text-white transition">No account? Sign Up</button>
     </div>
   </div>
 
   <div id="calendar-modal" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-50 hidden flex items-center justify-center p-4 pb-28">
     <div class="w-full max-w-sm space-y-4">
       <div class="flex items-center justify-between">
-        <h3 class="font-orbitron font-extrabold text-lg text-white">Daily Login</h3>
-        <button onclick="closeModal('calendar-modal')" class="text-gray-400 hover:text-white text-xl font-bold">✕</button>
+        <h3 class="text-lg text-white">Daily Login</h3>
+        <button onclick="closeModal('calendar-modal')" class="text-gray-400 hover:text-white text-xl">✕</button>
       </div>
 
       <div class="grid grid-cols-2 gap-3">
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 1</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 1</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+1</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 2</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 2</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+2</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 3</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 3</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+3</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 4</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 4</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+4</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 5</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 5</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+5</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
         <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
-          <div class="text-xs font-orbitron text-gray-400">Day 6</div>
-          <div class="flex items-center justify-center space-x-1.5 text-sm font-orbitron font-bold text-white">
+          <div class="text-xs text-gray-400">Day 6</div>
+          <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+6</span>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-[10px]">2</div>
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
 
         <div class="col-span-2 bg-black border border-white/50 rounded-xl p-4 text-center space-y-1">
-          <div class="text-xs font-orbitron text-amber-400 font-bold">Day 7</div>
-          <div class="flex items-center justify-center space-x-1.5 text-base font-orbitron font-extrabold text-white">
+          <div class="text-xs text-amber-400">Day 7</div>
+          <div class="flex items-center justify-center space-x-1.5 text-base text-white">
             <span>+10</span>
-            <div class="w-5 h-5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black font-extrabold text-xs">2</div>
+            <div class="w-5 h-5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-xs">2</div>
           </div>
         </div>
       </div>
 
-      <button id="daily-claim-btn" onclick="claimDailyReward()" class="w-full py-3 bg-white text-black font-orbitron font-extrabold text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition disabled:opacity-50 disabled:active:scale-100">
+      <button id="daily-claim-btn" onclick="claimDailyReward()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition disabled:opacity-50 disabled:active:scale-100">
         Claim
       </button>
     </div>
   </div>
 
+  <div id="buy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 relative text-center">
+      <button onclick="closeModal('buy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+      <h3 class="text-lg text-white">Get One Point</h3>
+      <div class="flex items-center justify-center space-x-2 text-2xl text-white">
+        <span id="buy-amount">+100</span>
+        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-xs">2</div>
+      </div>
+      <p class="text-xs text-gray-400">Share your invitation link to earn One Point.</p>
+      <input id="buy-link" type="text" readonly class="w-full bg-neutral-950 silver-border text-xs text-gray-300 rounded-lg p-2.5 focus:outline-none">
+      <button onclick="copyBuy()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">Copy</button>
+    </div>
+  </div>
+
   <div id="booster-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 relative">
-      <button onclick="closeModal('booster-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
-      <h3 class="font-orbitron font-extrabold text-lg text-white text-center">HASH RATE RENTAL</h3>
+      <button onclick="closeModal('booster-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+      <h3 class="text-lg text-white text-center">HASH RATE RENTAL</h3>
 
       <div class="space-y-3 pt-2">
 
         <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
           <div>
-            <div class="text-xs text-gray-400 font-orbitron">Rent Period 30</div>
-            <div class="font-orbitron font-bold text-white text-sm">50 GH/s</div>
-            <div class="text-xs text-amber-400 font-orbitron font-bold">100 One Point</div>
+            <div class="text-xs text-gray-400">Rent Period 30</div>
+            <div class="text-white text-sm">50 GH/s</div>
+            <div class="text-xs text-amber-400">100 One Point</div>
           </div>
-          <button onclick="rentBooster(50, 100)" class="py-2 px-3 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+          <button onclick="rentBooster(50, 100)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
             RENT
           </button>
         </div>
 
         <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
           <div>
-            <div class="text-xs text-gray-400 font-orbitron">Rent Period 30</div>
-            <div class="font-orbitron font-bold text-white text-sm">300 GH/s</div>
-            <div class="text-xs text-amber-400 font-orbitron font-bold">1,000 One Point</div>
+            <div class="text-xs text-gray-400">Rent Period 30</div>
+            <div class="text-white text-sm">300 GH/s</div>
+            <div class="text-xs text-amber-400">1,000 One Point</div>
           </div>
-          <button onclick="rentBooster(300, 1000)" class="py-2 px-3 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+          <button onclick="rentBooster(300, 1000)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
             RENT
           </button>
         </div>
 
         <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
           <div>
-            <div class="text-xs text-gray-400 font-orbitron">Rent Period 30</div>
-            <div class="font-orbitron font-bold text-white text-sm">1,000 GH/s</div>
-            <div class="text-xs text-amber-400 font-orbitron font-bold">10,000 One Point</div>
+            <div class="text-xs text-gray-400">Rent Period 30</div>
+            <div class="text-white text-sm">1,000 GH/s</div>
+            <div class="text-xs text-amber-400">10,000 One Point</div>
           </div>
-          <button onclick="rentBooster(1000, 10000)" class="py-2 px-3 bg-white text-black font-orbitron font-bold text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+          <button onclick="rentBooster(1000, 10000)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
             RENT
           </button>
         </div>
@@ -476,26 +487,26 @@
 
   <div id="valuation-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 relative text-center">
-      <button onclick="closeModal('valuation-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
+      <button onclick="closeModal('valuation-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
 
-      <div class="w-16 h-16 rounded-full bg-amber-500 border-2 border-yellow-300 flex items-center justify-center text-black font-black text-2xl mx-auto">
+      <div class="w-16 h-16 rounded-full bg-amber-500 border-2 border-yellow-300 flex items-center justify-center text-black text-2xl mx-auto">
         1
       </div>
 
-      <h3 class="font-orbitron font-extrabold text-lg text-white">ONECOIN PORTFOLIO</h3>
+      <h3 class="text-lg text-white">ONECOIN PORTFOLIO</h3>
 
-      <div class="space-y-3 bg-neutral-950 silver-border p-4 rounded-2xl text-left font-orbitron">
+      <div class="space-y-3 bg-neutral-950 silver-border p-4 rounded-2xl text-left">
         <div class="flex justify-between text-xs">
           <span class="text-gray-400">1 ONE Price:</span>
-          <span class="text-emerald-400 font-bold">$42.50 USD</span>
+          <span class="text-emerald-400">$42.50 USD</span>
         </div>
         <div class="flex justify-between text-xs">
           <span class="text-gray-400">Total Holdings:</span>
-          <span id="val-total-one" class="text-white font-bold">0.000000000 ONE</span>
+          <span id="val-total-one" class="text-white">0.000000000 ONE</span>
         </div>
         <div class="border-t border-neutral-800 pt-2 flex justify-between text-sm">
-          <span class="text-gray-300 font-bold">Est. Value:</span>
-          <span id="val-total-usd" class="text-amber-400 font-extrabold">$0.00 USD</span>
+          <span class="text-gray-300">Est. Value:</span>
+          <span id="val-total-usd" class="text-amber-400">$0.00 USD</span>
         </div>
       </div>
     </div>
@@ -503,14 +514,14 @@
 
   <div id="op-buy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 relative text-center">
-      <button onclick="closeModal('op-buy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
-      <h3 class="font-orbitron font-extrabold text-lg text-white">GET ONEPOINTS</h3>
+      <button onclick="closeModal('op-buy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+      <h3 class="text-lg text-white">GET ONEPOINTS</h3>
       <p class="text-xs text-gray-400">Earn OP by checking in daily or inviting friends to speed up your mining!</p>
       <div class="grid grid-cols-2 gap-2 pt-2">
-        <button onclick="closeModal('op-buy-modal'); openModal('calendar-modal');" class="py-3 bg-white text-black font-orbitron font-bold text-xs rounded-xl hover:bg-gray-200">
+        <button onclick="closeModal('op-buy-modal'); openModal('calendar-modal');" class="py-3 bg-white text-black text-xs rounded-xl hover:bg-gray-200">
           Daily Bonus
         </button>
-        <button onclick="closeModal('op-buy-modal'); switchTab('friends');" class="py-3 bg-black text-white silver-border font-orbitron font-bold text-xs rounded-xl hover:bg-neutral-900">
+        <button onclick="closeModal('op-buy-modal'); switchTab('friends');" class="py-3 bg-black text-white silver-border text-xs rounded-xl hover:bg-neutral-900">
           Invite Friends
         </button>
       </div>
@@ -534,6 +545,7 @@
     let mineBase = 0;
     let mineStamp = Date.now();
     let dailyWait = 0;
+    let buyAmount = 0;
     let syncTimer = null;
 
     let audioCtx = null;
@@ -761,7 +773,7 @@
     function renderFriends(list) {
       document.getElementById('friends-count').innerText = `${list.length} Users`;
       document.getElementById('friends-list').innerHTML = list.length
-        ? list.map(f => `<div class="flex justify-between items-center font-orbitron text-sm text-white py-1"><span>${f.username}</span><span class="text-amber-400">${Number(f.one).toFixed(9)} ONE</span></div>`).join('')
+        ? list.map(f => `<div class="flex justify-between items-center text-sm text-white py-1"><span>${f.username}</span><span class="text-amber-400">${Number(f.one).toFixed(9)} ONE</span></div>`).join('')
         : 'No friends invited yet. Share your referral link above!';
     }
 
@@ -809,11 +821,35 @@
       }
     }
 
-    async function buyOpPackage(amount) {
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      return ok ? Promise.resolve() : Promise.reject(new Error('Copy failed. Select the link and copy it manually.'));
+    }
+
+    function buyOpPackage(amount) {
+      buyAmount = amount;
+      document.getElementById('buy-amount').innerText = `+${amount.toLocaleString()}`;
+      document.getElementById('buy-link').value = document.getElementById('ref-link').value;
+      openModal('buy-modal');
+    }
+
+    async function copyBuy() {
       try {
-        await call('oc_buy_op', { p_amount: amount });
+        await copyText(document.getElementById('buy-link').value);
+        await call('oc_buy_op', { p_amount: buyAmount });
         playChimeSound();
-        alert(`Request for +${amount.toLocaleString()} OnePoints sent. They will be added after admin approval.`);
+        closeModal('buy-modal');
+        alert(`Link copied. Request for +${buyAmount.toLocaleString()} OnePoints sent for admin approval.`);
       } catch (e) {
         alert(e.message);
       }
@@ -843,10 +879,10 @@
     }
 
     function copyRefLink() {
-      navigator.clipboard.writeText(document.getElementById('ref-link').value).then(() => {
+      copyText(document.getElementById('ref-link').value).then(() => {
         playChimeSound();
         alert('Invitation link copied to clipboard!');
-      });
+      }).catch(e => alert(e.message));
     }
 
     function withdrawReferrals() {
