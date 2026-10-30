@@ -232,6 +232,8 @@
         </div>
       </div>
 
+      <div id="booster-list" class="w-full space-y-2"></div>
+
     </section>
 
     <section id="tab-friends" class="tab-content hidden space-y-5">
@@ -369,42 +371,42 @@
       </div>
 
       <div class="grid grid-cols-2 gap-3">
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="1" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 1</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+1</span>
             <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="2" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 2</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+2</span>
             <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="3" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 3</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+3</span>
             <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="4" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 4</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+4</span>
             <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="5" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 5</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+5</span>
             <div class="w-4 h-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-[10px]">2</div>
           </div>
         </div>
-        <div class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
+        <div data-day="6" class="bg-black border border-white/30 rounded-xl p-3 text-center space-y-1">
           <div class="text-xs text-gray-400">Day 6</div>
           <div class="flex items-center justify-center space-x-1.5 text-sm text-white">
             <span>+6</span>
@@ -412,7 +414,7 @@
           </div>
         </div>
 
-        <div class="col-span-2 bg-black border border-white/50 rounded-xl p-4 text-center space-y-1">
+        <div data-day="7" class="col-span-2 bg-black border border-white/50 rounded-xl p-4 text-center space-y-1">
           <div class="text-xs text-amber-400">Day 7</div>
           <div class="flex items-center justify-center space-x-1.5 text-base text-white">
             <span>+10</span>
@@ -498,7 +500,7 @@
       <div class="space-y-3 bg-neutral-950 silver-border p-4 rounded-2xl text-left">
         <div class="flex justify-between text-xs">
           <span class="text-gray-400">1 ONE Price:</span>
-          <span class="text-emerald-400">$42.50 USD</span>
+          <span id="val-price" class="text-emerald-400">$42.50 USD</span>
         </div>
         <div class="flex justify-between text-xs">
           <span class="text-gray-400">Total Holdings:</span>
@@ -533,10 +535,10 @@
     let oneBalance = 0.000000000;
     let minedAcc = 0.000000000;
     let usdtBalance = 0.00;
-    let baseSpeed = 3.000;
     let currentSpeed = 3.000;
     let isMiningActive = false;
-    const ONE_PRICE_USD = 42.50;
+    const BASE_SPEED = 3;
+    let onePrice = 42.50;
 
     const SB_URL = 'https://fdrrjbchooqlpijujaed.supabase.co';
     const SB_KEY = 'sb_publishable_XW3_8K4gpjX9ph02phJDqQ_RQCRBNNm';
@@ -546,6 +548,9 @@
     let mineStamp = Date.now();
     let dailyWait = 0;
     let buyAmount = 0;
+    let dailyDay = 0;
+    let daysReset = false;
+    let boosters = [];
     let syncTimer = null;
 
     let audioCtx = null;
@@ -653,9 +658,6 @@
       if (e) e.preventDefault();
       initAudio();
       isMiningActive = true;
-      currentSpeed = baseSpeed;
-
-      document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
       document.getElementById('coin-drum').classList.add('active-mine');
 
       startWindSound();
@@ -665,8 +667,6 @@
 
     function stopMining() {
       isMiningActive = false;
-      currentSpeed = baseSpeed;
-      document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
       document.getElementById('coin-drum').classList.remove('active-mine');
       stopWindSound();
     }
@@ -782,11 +782,15 @@
       opBalance = Number(s.op);
       oneBalance = Number(s.one);
       usdtBalance = Number(s.usdt);
-      baseSpeed = Number(s.speed);
-      currentSpeed = baseSpeed;
+      onePrice = Number(s.price);
       mineBase = Number(s.mined);
       dailyWait = Number(s.daily_wait) || 0;
+      dailyDay = Number(s.daily_day) || 0;
       mineStamp = Date.now();
+      daysReset = false;
+      boosters = s.boosters.map(b => ({ ghs: Number(b.ghs), left: Number(b.left), synced: false }));
+      renderBoosters();
+      renderDays();
       document.getElementById('my-code').innerText = s.code;
       document.getElementById('ref-link').value = `${location.origin}${location.pathname}?ref=${s.code}`;
       renderFriends(s.friends);
@@ -794,15 +798,52 @@
     }
 
     setInterval(() => {
-      minedAcc = mineBase + ((Date.now() - mineStamp) / 1000) * currentSpeed / 100000;
+      const elapsed = (Date.now() - mineStamp) / 1000;
+      let rate = BASE_SPEED;
+      let extra = 0;
+      boosters.forEach((b, i) => {
+        const remain = b.left - elapsed;
+        extra += b.ghs * Math.min(elapsed, b.left);
+        if (remain > 0) rate += b.ghs;
+        document.getElementById('booster-left-' + i).textContent = formatLeft(Math.max(0, Math.ceil(remain)));
+        if (remain <= 0 && !b.synced) {
+          b.synced = true;
+          setTimeout(() => sync().catch(() => {}), 1500);
+        }
+      });
+      currentSpeed = rate;
+      minedAcc = mineBase + (elapsed * BASE_SPEED + extra) / 100000;
       document.getElementById('mined-counter').innerText = minedAcc.toFixed(9);
+      document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
 
-      const left = Math.max(0, Math.ceil(dailyWait - (Date.now() - mineStamp) / 1000));
+      const left = Math.max(0, Math.ceil(dailyWait - elapsed));
       const label = left > 0 ? `Next claim in ${formatWait(left)}` : 'Claim';
       const btn = document.getElementById('daily-claim-btn');
       btn.disabled = left > 0;
       if (btn.textContent !== label) btn.textContent = label;
+      if (left === 0 && dailyDay === 7 && !daysReset) {
+        daysReset = true;
+        renderDays();
+      }
     }, 100);
+
+    function formatLeft(sec) {
+      return `${Math.floor(sec / 86400)}d ${formatWait(sec % 86400)}`;
+    }
+
+    function renderBoosters() {
+      document.getElementById('booster-list').innerHTML = boosters.map((b, i) => `<div class="flex items-center justify-between bg-neutral-950 silver-border rounded-xl px-3 py-2 text-sm"><span class="text-white">+${b.ghs.toLocaleString()} GH/s</span><span id="booster-left-${i}" class="text-amber-400"></span></div>`).join('');
+    }
+
+    function renderDays() {
+      const left = Math.max(0, Math.ceil(dailyWait - (Date.now() - mineStamp) / 1000));
+      const done = dailyDay === 7 && left === 0 ? 0 : dailyDay;
+      document.querySelectorAll('[data-day]').forEach(box => {
+        const n = Number(box.dataset.day);
+        box.classList.toggle('opacity-40', n <= done);
+        box.firstElementChild.innerText = n <= done ? `Day ${n} ✓` : `Day ${n}`;
+      });
+    }
 
     function formatWait(sec) {
       const h = Math.floor(sec / 3600);
@@ -859,8 +900,9 @@
       try {
         await call('oc_rent', { p_ghs: ghs, p_cost: cost });
         playChimeSound();
+        await sync();
         closeModal('booster-modal');
-        alert(`Booster request (+${ghs} GH/s) sent. It will be activated after admin approval.`);
+        alert(`Booster activated! +${ghs} GH/s for 30 days.`);
       } catch (e) {
         alert(e.message);
       }
@@ -916,13 +958,14 @@
       document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
 
       document.getElementById('wallet-one-balance').innerText = oneBalance.toFixed(9);
-      document.getElementById('wallet-one-usd').innerText = (oneBalance * ONE_PRICE_USD).toFixed(2);
+      document.getElementById('wallet-one-usd').innerText = (oneBalance * onePrice).toFixed(2);
 
       document.getElementById('wallet-usdt-balance').innerText = usdtBalance.toFixed(2);
       document.getElementById('wallet-usdt-usd').innerText = usdtBalance.toFixed(2);
 
       document.getElementById('val-total-one').innerText = `${oneBalance.toFixed(9)} ONE`;
-      document.getElementById('val-total-usd').innerText = `$${(oneBalance * ONE_PRICE_USD).toFixed(2)} USD`;
+      document.getElementById('val-total-usd').innerText = `$${(oneBalance * onePrice).toFixed(2)} USD`;
+      document.getElementById('val-price').innerText = `$${onePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })} USD`;
     }
 
     document.addEventListener('click', initAudio, { once: true });
