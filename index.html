@@ -60,13 +60,13 @@
     }
 
     @keyframes spinSlow {
-      0% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     @keyframes spinFast {
-      0% { transform: rotateY(0deg) scale(1.05); }
-      100% { transform: rotateY(360deg) scale(1.05); }
+      0% { transform: rotate(0deg) scale(1.05); }
+      100% { transform: rotate(360deg) scale(1.05); }
     }
 
     .particle {
@@ -165,7 +165,7 @@
         <div id="mined-counter" class="text-3xl md:text-4xl text-white tracking-wider">
           0.000000000
         </div>
-        <div id="mining-speed-display" class="text-gray-400 text-xs tracking-widest mt-2 uppercase">
+        <div class="text-gray-400 text-xs tracking-widest mt-2 uppercase">
           Mining <span id="speed-val" class="text-white">3.000</span> GH/s
         </div>
       </div>
@@ -248,23 +248,18 @@
         <div class="bg-black silver-border rounded-xl p-4 flex items-center justify-between">
           <div class="text-left">
             <div class="text-xs text-gray-400">TOTAL EARNED</div>
-            <div class="text-xl text-emerald-400">$<span id="referral-earnings">0.00</span></div>
+            <div class="text-xl text-emerald-400">$0.00</div>
           </div>
           <button onclick="withdrawReferrals()" class="py-2 px-4 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
             Withdraw
           </button>
         </div>
 
-        <div class="bg-black silver-border rounded-xl p-4 text-left">
-          <div class="text-xs text-gray-400">YOUR INVITE CODE</div>
-          <div id="my-code" class="text-xl text-white">-</div>
-        </div>
-
         <div class="space-y-2 text-left">
-          <label class="text-xs text-gray-400">YOUR INVITATION LINK</label>
+          <label class="text-xs text-gray-400">YOUR INVITE CODE</label>
           <div class="flex items-center space-x-2">
-            <input id="ref-link" type="text" readonly value="" class="bg-black silver-border text-xs text-gray-300 rounded-lg p-2.5 flex-1 focus:outline-none">
-            <button onclick="copyRefLink()" class="py-2.5 px-4 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
+            <input id="my-code" type="text" readonly value="" class="bg-black silver-border text-base text-white rounded-lg p-2.5 flex-1 focus:outline-none">
+            <button onclick="copyCode()" class="py-2.5 px-4 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
               Copy
             </button>
           </div>
@@ -277,7 +272,7 @@
           <span id="friends-count" class="text-white">0 Users</span>
         </div>
         <div id="friends-list" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-center text-gray-500 text-xs py-4">
-          No friends invited yet. Share your referral link above!
+          No friends invited yet. Share your invite code above!
         </div>
       </div>
     </section>
@@ -354,9 +349,9 @@
   <div id="auth-modal" class="fixed inset-0 bg-black z-[60] flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 text-center">
       <h3 id="auth-title" class="text-lg text-white">SIGN IN</h3>
-      <input id="auth-user" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" autocapitalize="none" autocomplete="username" placeholder="Username" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
-      <input id="auth-pass" onkeydown="if (event.key === 'Enter') submitAuth()" type="password" autocomplete="current-password" placeholder="Password" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
-      <input id="auth-code" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" inputmode="numeric" placeholder="Invite code" class="hidden w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <input id="auth-user" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" maxlength="20" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" oninput="sanitize(this, /[^a-z]/g)" placeholder="Username" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <input id="auth-pass" onkeydown="if (event.key === 'Enter') submitAuth()" type="password" autocomplete="current-password" oninput="sanitize(this, /[^!-~]/g)" placeholder="Password" class="w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
+      <input id="auth-code" onkeydown="if (event.key === 'Enter') submitAuth()" type="text" inputmode="numeric" oninput="sanitize(this, /\D/g)" placeholder="Invite code" class="hidden w-full bg-neutral-950 silver-border text-base text-white rounded-lg p-3 focus:outline-none">
       <div id="auth-error" class="text-xs text-red-400 min-h-[1rem]"></div>
       <button id="auth-submit" onclick="submitAuth()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">SIGN IN</button>
       <button id="auth-switch" onclick="setAuthMode(authMode === 'in' ? 'up' : 'in')" class="text-xs text-gray-400 hover:text-white transition">No account? Sign Up</button>
@@ -437,8 +432,8 @@
         <span id="buy-amount">+100</span>
         <div class="w-6 h-6 rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 flex items-center justify-center text-black text-xs">2</div>
       </div>
-      <p class="text-xs text-gray-400">Share your invitation link to earn One Point.</p>
-      <input id="buy-link" type="text" readonly class="w-full bg-neutral-950 silver-border text-xs text-gray-300 rounded-lg p-2.5 focus:outline-none">
+      <p class="text-xs text-gray-400">Share your invite code to earn One Point.</p>
+      <input id="buy-code" type="text" readonly class="w-full bg-neutral-950 silver-border text-xs text-gray-300 rounded-lg p-2.5 focus:outline-none">
       <button onclick="copyBuy()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">Copy</button>
     </div>
   </div>
@@ -536,7 +531,6 @@
     let minedAcc = 0.000000000;
     let usdtBalance = 0.00;
     let currentSpeed = 3.000;
-    let isMiningActive = false;
     const BASE_SPEED = 3;
     let onePrice = 42.50;
 
@@ -657,7 +651,6 @@
     function startMining(e) {
       if (e) e.preventDefault();
       initAudio();
-      isMiningActive = true;
       document.getElementById('coin-drum').classList.add('active-mine');
 
       startWindSound();
@@ -666,13 +659,12 @@
     }
 
     function stopMining() {
-      isMiningActive = false;
       document.getElementById('coin-drum').classList.remove('active-mine');
       stopWindSound();
     }
 
     function createParticle(e) {
-      const container = document.getElementById('coin-drum');
+      const container = document.getElementById('coin-drum').parentElement;
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.innerText = '+0.0001 ONE';
@@ -704,6 +696,10 @@
       return rpc(fn, Object.assign({ p_user: session.u, p_token: session.t }, extra));
     }
 
+    function sanitize(el, re) {
+      el.value = el.value.replace(re, '');
+    }
+
     function setAuthMode(mode) {
       authMode = mode;
       document.getElementById('auth-code').classList.toggle('hidden', mode === 'in');
@@ -714,9 +710,9 @@
     }
 
     async function submitAuth() {
-      const u = document.getElementById('auth-user').value.trim().toLowerCase();
+      const u = document.getElementById('auth-user').value;
       const p = document.getElementById('auth-pass').value;
-      const c = document.getElementById('auth-code').value.trim();
+      const c = document.getElementById('auth-code').value;
       try {
         const t = authMode === 'up'
           ? await rpc('oc_register', { p_user: u, p_pass: p, p_ref: c })
@@ -763,18 +759,13 @@
           session = null;
         }
       }
-      const ref = new URLSearchParams(location.search).get('ref');
-      if (ref) {
-        setAuthMode('up');
-        document.getElementById('auth-code').value = ref;
-      }
     }
 
     function renderFriends(list) {
       document.getElementById('friends-count').innerText = `${list.length} Users`;
       document.getElementById('friends-list').innerHTML = list.length
         ? list.map(f => `<div class="flex justify-between items-center text-sm text-white py-1"><span>${f.username}</span><span class="text-amber-400">${Number(f.one).toFixed(9)} ONE</span></div>`).join('')
-        : 'No friends invited yet. Share your referral link above!';
+        : 'No friends invited yet. Share your invite code above!';
     }
 
     async function sync() {
@@ -791,8 +782,7 @@
       boosters = s.boosters.map(b => ({ ghs: Number(b.ghs), left: Number(b.left), synced: false }));
       renderBoosters();
       renderDays();
-      document.getElementById('my-code').innerText = s.code;
-      document.getElementById('ref-link').value = `${location.origin}${location.pathname}?ref=${s.code}`;
+      document.getElementById('my-code').value = s.code;
       renderFriends(s.friends);
       updateDisplay();
     }
@@ -874,23 +864,23 @@
       area.select();
       const ok = document.execCommand('copy');
       area.remove();
-      return ok ? Promise.resolve() : Promise.reject(new Error('Copy failed. Select the link and copy it manually.'));
+      return ok ? Promise.resolve() : Promise.reject(new Error('Copy failed. Select the code and copy it manually.'));
     }
 
     function buyOpPackage(amount) {
       buyAmount = amount;
       document.getElementById('buy-amount').innerText = `+${amount.toLocaleString()}`;
-      document.getElementById('buy-link').value = document.getElementById('ref-link').value;
+      document.getElementById('buy-code').value = document.getElementById('my-code').value;
       openModal('buy-modal');
     }
 
     async function copyBuy() {
       try {
-        await copyText(document.getElementById('buy-link').value);
+        await copyText(document.getElementById('buy-code').value);
         await call('oc_buy_op', { p_amount: buyAmount });
         playChimeSound();
         closeModal('buy-modal');
-        alert(`Link copied. Request for +${buyAmount.toLocaleString()} OnePoints sent for admin approval.`);
+        alert(`Code copied. Request for +${buyAmount.toLocaleString()} OnePoints sent for admin approval.`);
       } catch (e) {
         alert(e.message);
       }
@@ -920,10 +910,10 @@
       }
     }
 
-    function copyRefLink() {
-      copyText(document.getElementById('ref-link').value).then(() => {
+    function copyCode() {
+      copyText(document.getElementById('my-code').value).then(() => {
         playChimeSound();
-        alert('Invitation link copied to clipboard!');
+        alert('Invite code copied to clipboard!');
       }).catch(e => alert(e.message));
     }
 
