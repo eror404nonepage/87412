@@ -39,7 +39,6 @@
     }
 
     .coin-3d {
-      position: relative;
       width: 180px;
       height: 180px;
       border-radius: 50%;
@@ -54,7 +53,7 @@
     }
 
     .coin-3d.active-mine {
-      animation: spinFast 1s linear infinite !important;
+      animation: spinFast 1s linear infinite;
       box-shadow: 0 0 60px rgba(255, 190, 60, 0.8), inset 0 0 25px rgba(255, 255, 255, 0.9);
       transform: scale(1.05);
     }
@@ -93,6 +92,11 @@
       padding: 2px 25px;
       transform: rotate(-45deg);
       box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .pack-btn.selected {
+      background-color: #ffffff;
+      color: #000000;
     }
 
     ::-webkit-scrollbar {
@@ -441,43 +445,44 @@
   <div id="booster-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-black silver-border-glow rounded-3xl p-6 w-full max-w-sm space-y-4 relative">
       <button onclick="closeModal('booster-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
-      <h3 class="text-lg text-white text-center">HASH RATE RENTAL</h3>
 
-      <div class="space-y-3 pt-2">
+      <div class="grid grid-cols-3 gap-3 pt-4">
 
-        <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
-          <div>
-            <div class="text-xs text-gray-400">Rent Period 30</div>
-            <div class="text-white text-sm">50 GH/s</div>
-            <div class="text-xs text-amber-400">100 One Point</div>
-          </div>
-          <button onclick="rentBooster(50, 100)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
-            RENT
-          </button>
+        <button data-ghs="50" data-cost="100" onclick="selectPack(this)" class="pack-btn aspect-square flex flex-col items-center justify-center bg-black text-white silver-border rounded-xl active:scale-95 transition">
+          <span class="text-lg">50</span>
+          <span class="text-xs">GH/s</span>
+        </button>
+
+        <button data-ghs="300" data-cost="1000" onclick="selectPack(this)" class="pack-btn aspect-square flex flex-col items-center justify-center bg-black text-white silver-border rounded-xl active:scale-95 transition">
+          <span class="text-lg">300</span>
+          <span class="text-xs">GH/s</span>
+        </button>
+
+        <button data-ghs="1000" data-cost="10000" onclick="selectPack(this)" class="pack-btn aspect-square flex flex-col items-center justify-center bg-black text-white silver-border rounded-xl active:scale-95 transition">
+          <span class="text-lg">1 000</span>
+          <span class="text-xs">GH/s</span>
+        </button>
+
+      </div>
+
+      <div id="rent-panel" class="hidden bg-neutral-950 silver-border rounded-2xl p-4 space-y-4">
+        <div class="text-sm text-gray-400 space-y-1">
+          <div>Rent Period – <span class="text-white">30</span></div>
+          <div>Digging Speed – <span id="rent-speed" class="text-white"></span></div>
         </div>
 
-        <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
-          <div>
-            <div class="text-xs text-gray-400">Rent Period 30</div>
-            <div class="text-white text-sm">300 GH/s</div>
-            <div class="text-xs text-amber-400">1,000 One Point</div>
+        <div class="space-y-2">
+          <div class="text-sm text-gray-400">Quantity</div>
+          <div class="flex items-center justify-between bg-black silver-border rounded-xl">
+            <button onclick="changeQty(-1)" class="w-14 h-12 text-xl text-white active:scale-95 transition">−</button>
+            <span id="rent-qty" class="text-lg text-white"></span>
+            <button onclick="changeQty(1)" class="w-14 h-12 text-xl text-white active:scale-95 transition">+</button>
           </div>
-          <button onclick="rentBooster(300, 1000)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
-            RENT
-          </button>
         </div>
 
-        <div class="bg-neutral-950 silver-border rounded-xl p-3 flex items-center justify-between">
-          <div>
-            <div class="text-xs text-gray-400">Rent Period 30</div>
-            <div class="text-white text-sm">1,000 GH/s</div>
-            <div class="text-xs text-amber-400">10,000 One Point</div>
-          </div>
-          <button onclick="rentBooster(1000, 10000)" class="py-2 px-3 bg-white text-black text-xs rounded-lg hover:bg-gray-200 active:scale-95 transition">
-            RENT
-          </button>
-        </div>
+        <div class="text-sm text-gray-400">Rent Price – <span id="rent-price" class="text-amber-400"></span></div>
 
+        <button onclick="rentMiner()" class="w-full py-3 bg-white text-black text-sm rounded-xl hover:bg-gray-200 active:scale-95 transition">Rent Miner</button>
       </div>
     </div>
   </div>
@@ -530,7 +535,6 @@
     let oneBalance = 0.000000000;
     let minedAcc = 0.000000000;
     let usdtBalance = 0.00;
-    let currentSpeed = 3.000;
     const BASE_SPEED = 3;
     let onePrice = 42.50;
 
@@ -542,14 +546,14 @@
     let mineStamp = Date.now();
     let dailyWait = 0;
     let buyAmount = 0;
+    let rentPack = null;
+    let rentQty = 1;
     let dailyDay = 0;
     let daysReset = false;
     let boosters = [];
     let syncTimer = null;
 
     let audioCtx = null;
-    let windGain = null;
-    let windFilter = null;
     let windSource = null;
 
     function initAudio() {
@@ -557,9 +561,7 @@
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         audioCtx = new AudioContext();
-      } catch (e) {
-        console.log('Audio Context Error', e);
-      }
+      } catch (e) {}
     }
 
     function startWindSound() {
@@ -578,12 +580,12 @@
       windSource.buffer = noiseBuffer;
       windSource.loop = true;
 
-      windFilter = audioCtx.createBiquadFilter();
+      const windFilter = audioCtx.createBiquadFilter();
       windFilter.type = 'bandpass';
       windFilter.frequency.value = 400;
       windFilter.Q.value = 3.0;
 
-      windGain = audioCtx.createGain();
+      const windGain = audioCtx.createGain();
       windGain.gain.value = 0.15;
 
       windSource.connect(windFilter);
@@ -650,7 +652,6 @@
 
     function startMining(e) {
       if (e) e.preventDefault();
-      initAudio();
       document.getElementById('coin-drum').classList.add('active-mine');
 
       startWindSound();
@@ -754,7 +755,6 @@
       if (session) {
         try {
           await enter();
-          return;
         } catch (e) {
           session = null;
         }
@@ -801,10 +801,9 @@
           setTimeout(() => sync().catch(() => {}), 1500);
         }
       });
-      currentSpeed = rate;
       minedAcc = mineBase + (elapsed * BASE_SPEED + extra) / 100000;
       document.getElementById('mined-counter').innerText = minedAcc.toFixed(9);
-      document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
+      document.getElementById('speed-val').innerText = rate.toFixed(3);
 
       const left = Math.max(0, Math.ceil(dailyWait - elapsed));
       const label = left > 0 ? `Next claim in ${formatWait(left)}` : 'Claim';
@@ -886,13 +885,38 @@
       }
     }
 
-    async function rentBooster(ghs, cost) {
+    function packTotal(key) {
+      return Number(rentPack.dataset[key]) * rentQty;
+    }
+
+    function renderRent() {
+      document.getElementById('rent-qty').innerText = rentQty;
+      document.getElementById('rent-speed').innerText = `${packTotal('ghs').toLocaleString()} GH/s`;
+      document.getElementById('rent-price').innerText = `${packTotal('cost').toLocaleString()} OnePoint`;
+    }
+
+    function selectPack(btn) {
+      rentPack = btn;
+      rentQty = 1;
+      document.querySelectorAll('.pack-btn').forEach(b => b.classList.toggle('selected', b === btn));
+      document.getElementById('rent-panel').classList.toggle('hidden', !btn);
+      if (btn) renderRent();
+    }
+
+    function changeQty(step) {
+      rentQty = Math.min(10, Math.max(1, rentQty + step));
+      renderRent();
+    }
+
+    async function rentMiner() {
+      const ghs = packTotal('ghs');
       try {
-        await call('oc_rent', { p_ghs: ghs, p_cost: cost });
+        await call('oc_rent', { p_ghs: ghs, p_cost: packTotal('cost') });
         playChimeSound();
         await sync();
         closeModal('booster-modal');
-        alert(`Booster activated! +${ghs} GH/s for 30 days.`);
+        selectPack(null);
+        alert(`Booster activated! +${ghs.toLocaleString()} GH/s for 30 days.`);
       } catch (e) {
         alert(e.message);
       }
@@ -945,7 +969,6 @@
     function updateDisplay() {
       document.getElementById('top-op-balance').innerText = opBalance.toLocaleString();
       document.getElementById('top-one-balance').innerText = oneBalance.toFixed(3);
-      document.getElementById('speed-val').innerText = currentSpeed.toFixed(3);
 
       document.getElementById('wallet-one-balance').innerText = oneBalance.toFixed(9);
       document.getElementById('wallet-one-usd').innerText = (oneBalance * onePrice).toFixed(2);
@@ -960,7 +983,6 @@
 
     document.addEventListener('click', initAudio, { once: true });
     boot();
-    updateDisplay();
   </script>
 </body>
 </html>
